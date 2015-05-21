@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title>
+    Word Wallet Settings
+  </title>
+</head>
+
+<body>
+
+  <div style="text-align:left;font-size:large;">
+    
+    <table>
+      <tr>
+        <td style="text-align:right;padding:0.5em;">
+          new word:
+        </td>
+        <td style="vertical-align:top;padding:0.5em;">
+          <input type="text" id="word"> 
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:right;padding:0.5em;">
+           new word's nickname:
+           <div style="color:gray;font-size:small;margin-top:0.5em;">optional, used for passwords</div>
+        </td>
+        <td style="vertical-align:top;padding:0.5em;">
+          <input type="text" id="synonyme"> 
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align:top;padding:0.5em;text-align:right;">
+          <button id="reset"><span style="font-size:medium;color:darkred;">reset to defaults</span></button>
+        </td>
+        <td style="vertical-align:top;padding:0.5em;font-size:large;">
+          <button id="add"><span style="font-size:medium;color:green;">add to the list</span></button> 
+        </td>
+      </tr>
+
+    </table>
+        
+    <div style="margin-top:2em;width:70%;text-align:left;padding:1em;border:1px dashed gray;">
+      current wallet content:
+      <div id="currentWords" style="margin-top:1em;"></div>
+    </div>
+
+    <br>
+
+    <div style="font-size:medium;">
+      <ul>
+        <li style="margin:0.5em;">
+          to delete from list: just click the word
+        </li>
+        <li style="margin:0.5em;">
+          to see hidden word, move mouse over word's nickname in the list
+        </li>
+        <li style="margin:0.5em;color:red;">
+          please reload browser after you modify wallet content, for changes to take effect
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="settings.js"></script>
+
+
+</body>
+</html>
