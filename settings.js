@@ -1,14 +1,24 @@
 ﻿"use strict";
 
-var tmp = localStorage.getItem(WORD_LIST_KEY);
-var words;
+function getWords() {
 
-if (tmp) {
-  words = JSON.parse(tmp);
-} else {
-  words = DEFAULTS;
-  localStorage.setItem(WORD_LIST_KEY, JSON.stringify(DEFAULTS));
+  var tmp = localStorage.getItem(WORD_LIST_KEY);
+  var words;
+
+  if (tmp) {
+    words = JSON.parse(tmp);
+  } else {
+    words = DEFAULTS;
+    localStorage.setItem(WORD_LIST_KEY, JSON.stringify(DEFAULTS));
+  }
+
+  return words;
+
 }
+
+
+var words = getWords();
+
 
 if (words.length > 0) {
   for (var i = 0; i < words.length; i++) {
@@ -25,6 +35,25 @@ document.getElementById("reset").addEventListener("click", function(){
   window.location.reload(true);  
 }, false);
 
+
+document.getElementById("import").addEventListener("click", function() {
+
+  try {
+    words = JSON.parse(document.getElementById("impText").value);
+  } catch(e) {
+    alert("Cannot parse JSON format; please use only text created by Export function");
+    return;
+  }
+ 
+  saveWords();
+  
+  window.location.reload(true);
+
+});
+
+document.getElementById("export").addEventListener("click", function() {
+  document.getElementById("expText").value = JSON.stringify(words);
+});
 
 document.getElementById("add").addEventListener("click", function(){
 
