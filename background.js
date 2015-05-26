@@ -1,6 +1,6 @@
 chrome.contextMenus.onClicked.addListener(function(args) {
 
-  var dict = JSON.parse( localStorage.getItem(WORD_DICT_KEY) );
+  var dict = JSON.parse( localStorage.getItem(MENU_DICT_KEY) );
 
   var id = args.menuItemId;
 
@@ -17,6 +17,32 @@ chrome.contextMenus.onClicked.addListener(function(args) {
         buildWordWalletMenu();  
 
       }
+
+    } else if (dict[id].autoPass) {
+
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { 
+          autoPass: 1, 
+          userName: dict[id].userName, 
+          secret: localStorage.getItem(MASTER_SECRET_KEY)
+        });
+      });
+
+    } else if (dict[id].autoPassName) {
+
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { 
+          autoPassName: 1, 
+          userName: dict[id].userName, 
+          secret: localStorage.getItem(MASTER_SECRET_KEY)
+        });
+      });
+
+    } else if (dict[id].autoPassUniversal) {
+      
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {autoPassUniversal: 1, secret: localStorage.getItem(MASTER_SECRET_KEY)});
+      });
 
     } else {
 

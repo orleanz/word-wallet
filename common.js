@@ -1,8 +1,13 @@
-﻿var DEFAULTS = [ ['ä', ''], ['ö', ''], ['ü', ''], ['Ä', ''], 
+﻿var DEFAULT_WORDS = [ ['ä', ''], ['ö', ''], ['ü', ''], ['Ä', ''], 
   ['Ö', ''], ['Ü',''], ['ß',''], ['ñ', ''], ['12345', 'password'] ];
 
+var DEFAULT_USER_NAMES = ['user1', 'user2'];
+
+var MENU_DICT_KEY = "word_wallet_dict";
+
 var WORD_LIST_KEY = "word_wallet_word_list";
-var WORD_DICT_KEY = "word_wallet_dict";
+var USER_NAMES_KEY = "word_wallet_user_names";
+var MASTER_SECRET_KEY = "word_wallet_master_secret";
 
 function buildWordWalletMenu() {
 
@@ -11,9 +16,9 @@ function buildWordWalletMenu() {
   var dict = {};
 
   var parent = chrome.contextMenus.create({
-      "title": "Word Wallet",
-      "contexts": ["all"]
-    });
+    "title": "Word Wallet",
+    "contexts": ["all"]
+  });
 
   var words;
 
@@ -22,7 +27,7 @@ function buildWordWalletMenu() {
   if (tmp) {
     words = JSON.parse(tmp);
   } else {
-    words = DEFAULTS;
+    words = DEFAULT_WORDS;
   }
 
   for (var i = 0; i < words.length; i++) {
@@ -40,7 +45,7 @@ function buildWordWalletMenu() {
 
   }
 
-  var idSeparator = chrome.contextMenus.create(
+  chrome.contextMenus.create(
     {"type": "separator",
     "parentId": parent, 
     "contexts": ["all"]
@@ -54,7 +59,63 @@ function buildWordWalletMenu() {
 
   dict[idAdder] = {addWord: true};
 
-  localStorage.setItem(WORD_DICT_KEY, JSON.stringify(dict));
+  chrome.contextMenus.create(
+    {"type": "separator",
+    "parentId": parent, 
+    "contexts": ["all"]
+  });
+
+  var idAutoPassParent = chrome.contextMenus.create(
+    {"title": "passwords", 
+    "parentId": parent, 
+    "contexts": ["all"]
+  });
+
+  var idAutoPassUniversal = chrome.contextMenus.create(
+    {"title": "auto-password", 
+    "parentId": idAutoPassParent, 
+    "contexts": ["all"]
+  });
+
+  dict[idAutoPassUniversal] = {autoPassUniversal: true};
+
+  var userNames;
+
+  tmp = localStorage.getItem(USER_NAMES_KEY);
+
+  if (tmp) {
+    userNames = JSON.parse(tmp);
+  } else {
+    userNames = DEFAULT_USER_NAMES;
+  }
+
+  for (var i = 0; i < userNames.length; i++) {
+
+    chrome.contextMenus.create(
+      {"type": "separator",
+      "parentId": idAutoPassParent, 
+      "contexts": ["all"]
+    });
+
+    var idAutoPassName = chrome.contextMenus.create(
+      {"title":  "paste user: " + userNames[i], 
+      "parentId": idAutoPassParent, 
+      "contexts": ["all"]
+    });
+
+    dict[idAutoPassName] = {autoPassName: true, userName: userNames[i]};
+
+    var idAutoPass = chrome.contextMenus.create(
+      {"title":  "past password for: " + userNames[i], 
+      "parentId": idAutoPassParent, 
+      "contexts": ["all"]
+    });
+
+    dict[idAutoPass] = {autoPass: true, userName: userNames[i]};
+
+  }
+
+  localStorage.setItem(MENU_DICT_KEY, JSON.stringify(dict));
 
 }
 

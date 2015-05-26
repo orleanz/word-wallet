@@ -1,5 +1,30 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
+  if (request.autoPassUniversal) {
+
+    var host = window.location.hostname.split(".").slice(-2).join(".");
+    var hash = md5(host + request.secret);
+    document.activeElement.value = hash.substring(5, 15) + "!,Az";
+    return;
+
+  }
+
+  if (request.autoPassName) {
+
+    document.activeElement.value = request.userName
+    return;
+
+  }
+
+  if (request.autoPass) {
+
+    var host = window.location.hostname.split(".").slice(-2).join(".");
+    var hash = md5(request.userName + host + request.secret);
+    document.activeElement.value = hash.substring(5, 15) + "!,Az";
+    return;
+
+  }
+
   var elem = document.activeElement;
 
   var editable = elem.getAttribute("contenteditable") ? 

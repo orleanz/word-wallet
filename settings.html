@@ -1,91 +1,169 @@
 <html>
 <head>
-  <title>
-    Word Wallet Settings
-  </title>
+<title>
+  Word Wallet Config
+</title>
+
+<link rel="stylesheet" href="bootstrap.min.css">
+
 </head>
 
-<body>
+<body style="padding:1em;">
 
-  <div style="text-align:left;font-size:large;">
-    
-    <table>
-      <tr>
-        <td style="text-align:right;padding:0.5em;">
-          new word:
-        </td>
-        <td style="vertical-align:top;padding:0.5em;">
-          <input type="text" id="word"> 
-        </td>
-      </tr>
-      <tr>
-        <td style="text-align:right;padding:0.5em;">
-           new word's nickname:
-           <div style="color:gray;font-size:small;margin-top:0.5em;">optional, used for passwords</div>
-        </td>
-        <td style="vertical-align:top;padding:0.5em;">
-          <input type="text" id="synonyme"> 
-        </td>
-      </tr>
-      <tr>
-        <td style="vertical-align:top;padding:0.5em;text-align:right;">
-          <button id="reset"><span style="font-size:medium;color:darkred;">reset to defaults</span></button>
-        </td>
-        <td style="vertical-align:top;padding:0.5em;font-size:large;">
-          <button id="add"><span style="font-size:medium;color:green;">add to the list</span></button> 
-        </td>
-      </tr>
+<h2>Configuration and Tools</h2>
 
-    </table>
-        
-    <div style="margin-top:2em;width:70%;text-align:left;padding:1em;border:1px dashed gray;">
-      current wallet content:
-      <div id="currentWords" style="margin-top:1em;"></div>
-    </div>
+<div style="padding:1em;">
 
-    <br>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#wordlist" role="tab" data-toggle="tab">Word List</a></li>
+  <li><a href="#advanced" role="tab" data-toggle="tab">Automatic Passwords</a></li>
+  <li><a href="#expimp" role="tab" data-toggle="tab">Export / Import</a></li>
+</ul>
 
-    <div style="font-size:medium;">
-      <ul>
-        <li style="margin:0.5em;">
-          to delete from list: just click the word
-        </li>
-        <li style="margin:0.5em;">
-          to see hidden word, move mouse over word's nickname in the list
-        </li>
-        <li style="margin:0.5em;color:red;">
-          please reload browser after you modify wallet content, for changes to take effect
-        </li>
-      </ul>
-    </div>
-    
-    <br>
-    <br>
+<div class="tab-content">
 
-    <table>
+<div class="tab-pane active" id="wordlist"> 
 
-      <tr>
-        <td style="vertical-align:top;padding:1em;">
-          <button id="export">export</button> current configuration
-        </td>
-        <td style="vertical-align:top;padding:1em;">
-          <textarea id="expText" readonly="readonly" cols=50 rows=3></textarea>
-        </td>
-      </tr>
+<div style="margin-top:2em;width:70%;text-align:left;padding:1em;border:1px dashed gray;">
+  current wallet content:
+  <div id="currentWords" style="margin-top:1em;"></div>
+</div>
 
-      <tr>
-        <td style="vertical-align:top;padding:1em;">
-          <button id="import">import</button> configuration
-        </td>
-       <td style="vertical-align:top;padding:1em;">
-          <textarea id="impText" cols=50 rows=3></textarea>
-        </td>
-      </tr>
+<br>
+<br>
 
-    </table>
+<table>
+    <tr>
+      <td style="text-align:right;padding:0.5em;">
+        new word:
+      </td>
+      <td style="vertical-align:top;padding:0.5em;">
+        <input type="text" id="word"> 
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:right;padding:0.5em;">
+         new word's nickname:
+         <div style="color:gray;font-size:small;margin-top:0.5em;">optional, used for passwords</div>
+      </td>
+      <td style="vertical-align:top;padding:0.5em;">
+        <input type="text" id="synonyme"> 
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align:top;padding:0.5em;text-align:right;">
+        <button id="reset"><span style="font-size:medium;color:darkred;">reset to defaults</span></button>
+      </td>
+      <td style="vertical-align:top;padding:0.5em;font-size:large;">
+        <button id="add"><span style="font-size:medium;color:green;">add to the list</span></button> 
+      </td>
+    </tr>
+
+  </table>
+
+
+
+  <br>
+
+  <div style="font-size:medium;">
+    <ul>
+      <li style="margin:0.5em;">
+        to delete from list: just click the word
+      </li>
+      <li style="margin:0.5em;">
+        to see hidden word, move mouse over word's nickname in the list
+      </li>
+      <li style="margin:0.5em;color:red;">
+        please reload browser after you modify wallet content, for changes to take effect
+      </li>
+    </ul>
+  </div>
+  
+  <br>
+  <br>
+
+</div>
+
+<div class="tab-pane" id="expimp">
+
+ <table>
+
+    <tr>
+      <td style="vertical-align:top;padding:1em;">
+        <button id="export">export current configuration</button> 
+        <p style="margin-top:0.5em;">(as JSON-formatted text)</p>
+      </td>
+      <td style="vertical-align:top;padding:1em;">
+        <textarea id="expText" readonly="readonly" cols=50 rows=3></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="vertical-align:top;padding:1em;">
+        <button id="import">import configuration</button> 
+        <p style="margin-top:0.5em;">(from JSON-formatted text)</p>
+      </td>
+     <td style="vertical-align:top;padding:1em;">
+        <textarea id="impText" cols=50 rows=3></textarea>
+      </td>
+    </tr>
+
+  </table>
+
+ </div>
+
+<div class="tab-pane" id="advanced">
+
+  <br>
+  <p>
+  Master Secret:
+
+  <div style="margin-top:0.5em;">
+    <input id="masterSecret" style="width:30em;font-family:Courier, monospace;">
+    <button style="margin-left:1em;" id="generateSecret">generate new</button>
+    <button style="margin-left:1em;" id="saveSecret">save</button>
+  </div>
+
+  <br>
+  <br>
+  <hr>
+
+  User Names:
+  <div style="margin-top:0.5em;width:70%;text-align:left;padding:1em;border:1px dashed gray;">
+    <div id="currentUserNames" style="margin-top:1em;"></div>
+  </div>
+
+  <br>
+  <br>
+
+  <div style="padding:0.5em;">
+    New User Name:
+    <input type="text" id="userName"> 
+    <button style="margin-left:1em;" id="addUserName"><span style="font-size:medium;color:green;">add to the list</span></button> 
 
   </div>
 
+  <br>
+  <div style="font-size:medium;">
+    <ul>
+      <li style="margin:0.5em;">
+        to delete from list: just click user name
+      </li>
+      <li style="margin:0.5em;color:red;">
+        please reload browser after you modify wallet content, for changes to take effect
+      </li>
+    </ul>
+  </div>
+
+  </p>
+
+ </div>
+  
+
+</div>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
 <script type="text/javascript" src="common.js"></script>
 <script type="text/javascript" src="settings.js"></script>
 
